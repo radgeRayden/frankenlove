@@ -10,6 +10,7 @@ update =
     fn (dt)
         ;
 
+let LCFunction = (pointer (function i32 (mutable@ lua.lua_State)))
 vvv bind graphics
 do
     fn rectangle (mode x y w h)
@@ -28,11 +29,27 @@ do
 
 vvv bind timer
 do
-    fn getTime ()
+    global getTime : i32
+    inline convi (i)
+        using lua
+        let top = (lua_gettop L)
+        print (deref i) top
+        i - top - 1
+
+    fn register ()
         using lua
         lua_getglobal L "love"
         lua_getfield L -1 "timer"
-        lua_getfield L -1 "getTime"
+        inline getfn (name)
+            lua_getfield L -1 name
+            luaL_ref L LUA_REGISTRYINDEX
+
+        getTime = (getfn "getTime")
+        ;
+
+    fn getTime ()
+        using lua
+        lua_rawgeti L LUA_REGISTRYINDEX getTime
         lua_call L 0 1
         let result = (lua_tonumber L -1)
         lua_pop L 1
