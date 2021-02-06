@@ -27,21 +27,6 @@ run-stage;
 import .callbacks
 import .game
 
-fn cb (L)
-    using lua
-    lua_getglobal L "love"
-    lua_getfield L -1 "graphics"
-    lua_getfield L -1 "rectangle"
-    lua_pushstring L "fill"
-    lua_pushnumber L 10.0
-    lua_pushnumber L 10.0
-    lua_pushnumber L 10.0
-    lua_pushnumber L 10.0
-    lua_call L 5 0
-    0
-
-let cb = (static-typify cb (mutable@ lua.lua_State))
-
 fn main (argc argv)
     using lua
     local L : (mutable@ lua_State)
@@ -55,15 +40,6 @@ fn main (argc argv)
     if (ret != 0)
         print (string (lua_tolstring L -1 null))
         return 1
-
-    # lua_getglobal L "love"
-    # lua_getfield L -1 "graphics"
-    # lua_getfield L -1 "setBackgroundColor"
-    # lua_pushnumber L 0.0
-    # lua_pushnumber L 1.0
-    # lua_pushnumber L 0.0
-    # lua_pushnumber L 1.0
-    # lua_call L 4 0
 
     lua_getglobal L "love"
     lua_pushstring L "draw"
