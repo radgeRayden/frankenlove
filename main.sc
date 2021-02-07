@@ -68,9 +68,6 @@ fn main (argc argv)
     lua_pushvalue L -2
     let love-coroutine = (luaL_ref L LUA_REGISTRYINDEX)
 
-    # execute once for initialization
-    love-handoff L love-coroutine
-
     # set callbacks
     lua_getglobal L "love"
     lua_pushstring L "draw"
@@ -79,6 +76,10 @@ fn main (argc argv)
     lua_pushstring L "update"
     lua_pushcfunction L callbacks.update
     lua_settable L -3
+    lua_pushstring L "load"
+    lua_pushcfunction L callbacks.load
+    lua_settable L -3
+    print (lua_gettop L)
 
     # TODO: implement restarting
     while (love-handoff L love-coroutine)

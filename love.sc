@@ -11,6 +11,11 @@ update =
     fn (dt)
         ;
 
+global _load : (pointer (function void))
+_load =
+    fn ()
+        ;
+
 let LCFunction = (pointer (function i32 (mutable@ lua.lua_State)))
 vvv bind graphics
 do
@@ -66,4 +71,6 @@ do
         draw
         graphics
         timer
+
+    let load = _load
     locals;

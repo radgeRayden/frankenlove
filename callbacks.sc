@@ -17,6 +17,10 @@ fn update (L)
     love.update dt
     0
 
+fn load (L)
+    love.load;
+    0
+
 do
-    let draw update
+    let draw update load
     locals;
