@@ -17,8 +17,8 @@ do
         using lua
 
         global id : i32
-        let stackpos = (lua_gettop L)
         if (id == 0)
+            let stackpos = (lua_gettop L)
             lua_getglobal L "love"
             lua_getfield L -1 "graphics"
             lua_getfield L -1 "rectangle"
@@ -42,8 +42,8 @@ do
         using lua
 
         global id : i32
-        let stackpos = (lua_gettop L)
         if (id == 0)
+            let stackpos = (lua_gettop L)
             lua_getglobal L "love"
             lua_getfield L -1 "timer"
             lua_getfield L -1 "getTime"
