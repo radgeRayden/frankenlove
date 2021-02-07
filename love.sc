@@ -15,9 +15,18 @@ vvv bind graphics
 do
     fn rectangle (mode x y w h)
         using lua
-        lua_getglobal L "love"
-        lua_getfield L -1 "graphics"
-        lua_getfield L -1 "rectangle"
+
+        global id : i32
+        let stackpos = (lua_gettop L)
+        if (id == 0)
+            lua_getglobal L "love"
+            lua_getfield L -1 "graphics"
+            lua_getfield L -1 "rectangle"
+
+            id = (luaL_ref L LUA_REGISTRYINDEX)
+            lua_pop L ((lua_gettop L) - stackpos)
+
+        lua_rawgeti L LUA_REGISTRYINDEX id
         lua_pushstring L (mode as rawstring)
         lua_pushnumber L (x as f64)
         lua_pushnumber L (y as f64)
@@ -29,32 +38,24 @@ do
 
 vvv bind timer
 do
-    global getTime : i32
-    inline convi (i)
-        using lua
-        let top = (lua_gettop L)
-        print (deref i) top
-        i - top - 1
-
-    fn register ()
-        using lua
-        lua_getglobal L "love"
-        lua_getfield L -1 "timer"
-        inline getfn (name)
-            lua_getfield L -1 name
-            luaL_ref L LUA_REGISTRYINDEX
-
-        getTime = (getfn "getTime")
-        ;
-
     fn getTime ()
         using lua
-        lua_rawgeti L LUA_REGISTRYINDEX getTime
+
+        global id : i32
+        let stackpos = (lua_gettop L)
+        if (id == 0)
+            lua_getglobal L "love"
+            lua_getfield L -1 "timer"
+            lua_getfield L -1 "getTime"
+
+            id = (luaL_ref L LUA_REGISTRYINDEX)
+            lua_pop L ((lua_gettop L) - stackpos)
+
+        lua_rawgeti L LUA_REGISTRYINDEX id
         lua_call L 0 1
         let result = (lua_tonumber L -1)
         lua_pop L 1
         result
-
     locals;
 
 do

@@ -78,7 +78,6 @@ fn main (argc argv)
     lua_pushstring L "update"
     lua_pushcfunction L callbacks.update
     lua_settable L -3
-    love.timer.register;
 
     # TODO: implement restarting
     while (love-handoff L love-coroutine)
