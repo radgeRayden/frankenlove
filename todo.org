@@ -1,0 +1,8 @@
+* API coverage [0/3]
++ [ ] generate type/function DAG in easily consumable form
++ [ ] write auto wrapper macro to generate function interfaces
++ [ ] generate enums that dispatch to the love strings
+
+* Usage [0/1]
++ [ ] don't take control of main, make itself callable
++ [ ] make library AOT safe

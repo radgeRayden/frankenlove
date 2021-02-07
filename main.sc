@@ -80,6 +80,7 @@ fn main (argc argv)
     lua_settable L -3
     love.timer.register;
 
+    # TODO: implement restarting
     while (love-handoff L love-coroutine)
         ;
 
