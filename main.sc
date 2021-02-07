@@ -3,6 +3,7 @@ run-stage;
 
 import .lua
 import .love
+import .state
 
 import .callbacks
 import .game
@@ -20,7 +21,7 @@ fn main (argc argv)
     local L : (mutable@ lua_State)
 
     L = (luaL_newstate)
-    love.L = L
+    state.L = L
     assert (L != null) "luajit failed to initialize"
 
     luaL_openlibs L

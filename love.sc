@@ -1,5 +1,6 @@
 import .lua
-global L : (mutable@ lua.lua_State)
+import .love-object
+let L = ((import .state) . L)
 
 global draw : (pointer (function void))
 draw =
